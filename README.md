@@ -34,21 +34,21 @@ This project demonstrates the implementation of **DPoP (Demonstration of Proof-o
 
 ## Project Structure
 
-dpop-angular-auth/
-│
-├── angular-client/ # Frontend (Angular)
-│ ├── src/
-│ │ ├── app/
-│ │ │ ├── services/ # Services for Auth and DPoP
-│ │ │ ├── interceptors/ # HTTP Interceptor for tokens and DPoP
-│ │ └── ...
-│ └── ...
-│
-├── dpop-node-server/ # Backend (Node.js)
-│ ├── server.js # Main server file
-│ └── ...
-│
-└── README.md # Project documentation
+    dpop-angular-auth/
+    │
+    ├── angular-client/                   # Frontend (Angular)
+    │   ├── src/
+    │   │   ├── app/
+    │   │   │   ├── services/             # Services for Auth and DPoP
+    │   │   │   ├── interceptors/         # HTTP Interceptor for tokens and DPoP
+    │   │   └── ...
+    │   └── ...
+    │
+    ├── dpop-node-server/                 # Backend (Node.js)
+    │   ├── server.js                     # Main server file
+    │   └── ...
+    │
+    └── README.md                         # Project documentation
 
 ## Installation
 
