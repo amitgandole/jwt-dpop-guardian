@@ -1,9 +1,9 @@
-
 # DPoP Authentication System with Angular and Node.js
 
 This project demonstrates the implementation of **DPoP (Demonstration of Proof-of-Possession)** authentication in a web application using **Angular** for the frontend and **Node.js** for the backend. The system secures resource access using OAuth 2.0 and DPoP for proof-of-possession verification.
 
 ## Table of Contents
+
 - [Features](#features)
 - [Technologies](#technologies)
 - [Project Structure](#project-structure)
@@ -22,33 +22,33 @@ This project demonstrates the implementation of **DPoP (Demonstration of Proof-o
 ## Technologies
 
 ### Frontend
+
 - **Angular**: For creating the login form and handling requests.
 - **RxJS**: For reactive programming and asynchronous request handling.
 
 ### Backend
+
 - **Node.js**: Handles API requests and user authentication.
 - **Express.js**: For building the backend API.
 - **JOSE (Javascript Object Signing and Encryption)**: For handling JWTs and DPoP proof verification.
 
 ## Project Structure
 
-\`\`\`plaintext
 dpop-angular-auth/
 │
-├── angular-client/                   # Frontend (Angular)
-│   ├── src/
-│   │   ├── app/
-│   │   │   ├── services/             # Services for Auth and DPoP
-│   │   │   ├── interceptors/         # HTTP Interceptor for tokens and DPoP
-│   │   └── ...
-│   └── ...
+├── angular-client/ # Frontend (Angular)
+│ ├── src/
+│ │ ├── app/
+│ │ │ ├── services/ # Services for Auth and DPoP
+│ │ │ ├── interceptors/ # HTTP Interceptor for tokens and DPoP
+│ │ └── ...
+│ └── ...
 │
-├── dpop-node-server/                 # Backend (Node.js)
-│   ├── server.js                     # Main server file
-│   └── ...
+├── dpop-node-server/ # Backend (Node.js)
+│ ├── server.js # Main server file
+│ └── ...
 │
-└── README.md                         # Project documentation
-\`\`\`
+└── README.md # Project documentation
 
 ## Installation
 
@@ -59,27 +59,21 @@ dpop-angular-auth/
 
 ### Steps
 
-1. **Clone the repository**:
+1.  **Clone the repository**:
 
-\`\`\`bash
-git clone https://github.com/your-username/dpop-angular-auth.git
-\`\`\`
+        git clone https://github.com/your-username/dpop-angular-auth.git
 
-2. **Install dependencies**:
+2.  **Install dependencies**:
 
-   - Navigate to the Angular client directory and install dependencies:
+- Navigate to the Angular client directory and install dependencies:
 
-     \`\`\`bash
-     cd dpop-angular-auth/angular-client
-     npm install
-     \`\`\`
+        cd dpop-angular-auth/angular-client
+        npm install
 
-   - Then navigate to the Node.js server directory and install dependencies:
+- Then navigate to the Node.js server directory and install dependencies:
 
-     \`\`\`bash
-     cd ../dpop-node-server
-     npm install
-     \`\`\`
+         cd ../dpop-node-server
+         npm install
 
 ## Usage
 
@@ -87,9 +81,7 @@ git clone https://github.com/your-username/dpop-angular-auth.git
 
 From the \`dpop-node-server\` directory, start the Node.js server:
 
-\`\`\`bash
-npm start
-\`\`\`
+    npm start
 
 The backend will start on \`http://localhost:3000\`.
 
@@ -97,9 +89,7 @@ The backend will start on \`http://localhost:3000\`.
 
 Open another terminal, navigate to the \`angular-client\` directory, and run the Angular app:
 
-\`\`\`bash
-ng serve
-\`\`\`
+    ng serve
 
 The Angular app will start on \`http://localhost:4200\`.
 
@@ -114,41 +104,40 @@ The Angular app will start on \`http://localhost:4200\`.
 ### Backend (Node.js)
 
 - **POST** \`/login\`: Authenticates the user and returns an access token.
-  
+
   **Request**:
-  \`\`\`json
-  {
-    "username": "test",
-    "password": "password"
-  }
-  \`\`\`
+
+      {
+        "username": "test",
+        "password": "password"
+      }
 
   **Response**:
-  \`\`\`json
-  {
-    "accessToken": "dummy-access-token"
-  }
-  \`\`\`
+
+      {
+        "accessToken": "dummy-access-token"
+      }
 
 - **GET** \`/secure-data\`: Retrieves secure data. Requires a valid access token and DPoP proof in headers.
 
   **Headers**:
-  \`\`\`json
-  {
-    "Authorization": "Bearer <access_token>",
-    "DPoP": "<dpop_proof>",
-    "x-public-key": "<public_key>"
-  }
-  \`\`\`
+
+      {
+        "Authorization": "Bearer <access_token>",
+        "DPoP": "<dpop_proof>",
+        "x-public-key": "<public_key>"
+      }
 
 ## Key Concepts
 
 ### DPoP Proof
+
 - **Demonstration of Proof-of-Possession (DPoP)** is a mechanism to bind a particular HTTP request to the possession of a private key. The client generates a unique DPoP proof for each request, and the server verifies it using the corresponding public key.
 
 ### JWT (JSON Web Token)
+
 - JWT is used for securing API endpoints by verifying the user's identity through an access token.
 
 ### Key Pair Generation
-- In this project, an elliptic curve (ES256) key pair is generated on the client-side. The public key is sent to the server for verification, and the private key is used to sign DPoP proofs.
 
+- In this project, an elliptic curve (ES256) key pair is generated on the client-side. The public key is sent to the server for verification, and the private key is used to sign DPoP proofs.
