@@ -1,27 +1,154 @@
-# DpopAngularAuth
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.10.
+# DPoP Authentication System with Angular and Node.js
 
-## Development server
+This project demonstrates the implementation of **DPoP (Demonstration of Proof-of-Possession)** authentication in a web application using **Angular** for the frontend and **Node.js** for the backend. The system secures resource access using OAuth 2.0 and DPoP for proof-of-possession verification.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Table of Contents
+- [Features](#features)
+- [Technologies](#technologies)
+- [Project Structure](#project-structure)
+- [Installation](#installation)
+- [Usage](#usage)
+- [API Endpoints](#api-endpoints)
 
-## Code scaffolding
+## Features
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- **Login Authentication**: Uses a simple username and password-based login with access tokens.
+- **DPoP Proof**: Implements DPoP (Demonstration of Proof-of-Possession) for secure resource access.
+- **Access Token Validation**: Verifies the validity of access tokens before allowing access to secure endpoints.
+- **Key Pair Generation**: Uses an Elliptic Curve key pair for generating and verifying DPoP proofs.
+- **CORS Enabled**: Supports cross-origin resource sharing for secure communication between Angular and Node.js apps.
 
-## Build
+## Technologies
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Frontend
+- **Angular**: For creating the login form and handling requests.
+- **RxJS**: For reactive programming and asynchronous request handling.
 
-## Running unit tests
+### Backend
+- **Node.js**: Handles API requests and user authentication.
+- **Express.js**: For building the backend API.
+- **JOSE (Javascript Object Signing and Encryption)**: For handling JWTs and DPoP proof verification.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Project Structure
 
-## Running end-to-end tests
+\`\`\`plaintext
+dpop-angular-auth/
+│
+├── angular-client/                   # Frontend (Angular)
+│   ├── src/
+│   │   ├── app/
+│   │   │   ├── services/             # Services for Auth and DPoP
+│   │   │   ├── interceptors/         # HTTP Interceptor for tokens and DPoP
+│   │   └── ...
+│   └── ...
+│
+├── dpop-node-server/                 # Backend (Node.js)
+│   ├── server.js                     # Main server file
+│   └── ...
+│
+└── README.md                         # Project documentation
+\`\`\`
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Installation
 
-## Further help
+### Prerequisites
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- [Node.js](https://nodejs.org/) (v14+)
+- [Angular CLI](https://angular.io/guide/setup-local) (v12+)
+
+### Steps
+
+1. **Clone the repository**:
+
+\`\`\`bash
+git clone https://github.com/your-username/dpop-angular-auth.git
+\`\`\`
+
+2. **Install dependencies**:
+
+   - Navigate to the Angular client directory and install dependencies:
+
+     \`\`\`bash
+     cd dpop-angular-auth/angular-client
+     npm install
+     \`\`\`
+
+   - Then navigate to the Node.js server directory and install dependencies:
+
+     \`\`\`bash
+     cd ../dpop-node-server
+     npm install
+     \`\`\`
+
+## Usage
+
+### 1. **Run the Backend (Node.js)**:
+
+From the \`dpop-node-server\` directory, start the Node.js server:
+
+\`\`\`bash
+npm start
+\`\`\`
+
+The backend will start on \`http://localhost:3000\`.
+
+### 2. **Run the Frontend (Angular)**:
+
+Open another terminal, navigate to the \`angular-client\` directory, and run the Angular app:
+
+\`\`\`bash
+ng serve
+\`\`\`
+
+The Angular app will start on \`http://localhost:4200\`.
+
+### 3. **Test the Authentication**:
+
+- Open your browser and navigate to \`http://localhost:4200\`.
+- Enter the login credentials (username: \`test\`, password: \`password\`).
+- Upon successful login, the system will send an access token and generate a DPoP proof for secure data access.
+
+## API Endpoints
+
+### Backend (Node.js)
+
+- **POST** \`/login\`: Authenticates the user and returns an access token.
+  
+  **Request**:
+  \`\`\`json
+  {
+    "username": "test",
+    "password": "password"
+  }
+  \`\`\`
+
+  **Response**:
+  \`\`\`json
+  {
+    "accessToken": "dummy-access-token"
+  }
+  \`\`\`
+
+- **GET** \`/secure-data\`: Retrieves secure data. Requires a valid access token and DPoP proof in headers.
+
+  **Headers**:
+  \`\`\`json
+  {
+    "Authorization": "Bearer <access_token>",
+    "DPoP": "<dpop_proof>",
+    "x-public-key": "<public_key>"
+  }
+  \`\`\`
+
+## Key Concepts
+
+### DPoP Proof
+- **Demonstration of Proof-of-Possession (DPoP)** is a mechanism to bind a particular HTTP request to the possession of a private key. The client generates a unique DPoP proof for each request, and the server verifies it using the corresponding public key.
+
+### JWT (JSON Web Token)
+- JWT is used for securing API endpoints by verifying the user's identity through an access token.
+
+### Key Pair Generation
+- In this project, an elliptic curve (ES256) key pair is generated on the client-side. The public key is sent to the server for verification, and the private key is used to sign DPoP proofs.
+
